@@ -348,6 +348,27 @@ SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inv
 }
 
 //
+// Convenience Constructor
+// (only pass one pin when rx/tx are the same)
+//
+SoftwareSerial::SoftwareSerial(uint8_t receiveTransmitPin, bool inverse_logic /* = false */) : 
+_rx_delay_centering(0),
+_rx_delay_intrabit(0),
+_rx_delay_stopbit(0),
+_tx_delay(0),
+_buffer_overflow(false),
+_inverse_logic(inverse_logic)
+{
+	//set flag as rx and tx shares pin
+	
+	_sharedRxTx = 1;
+	
+	
+	setTX(receiveTransmitPin);
+	setRX(receiveTransmitPin);
+}
+
+//
 // Destructor
 //
 SoftwareSerial::~SoftwareSerial()
